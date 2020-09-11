@@ -1,0 +1,1 @@
+document.querySeletor('h1').style.color = 'green'
