@@ -8,6 +8,7 @@ fetch('https://randomuser.me/api/?results=12')
 	.then(data => {
 		const users = data;
 		generateCards(users);
+		// generateModals(users);
 		})
 	// .then(data => console.log(data))
 
@@ -17,7 +18,6 @@ fetch('https://randomuser.me/api/?results=12')
  * Creates HTML to display as card for each user
  */
 function generateCards(data) {
-
 	const employees = data.results.map(employee => `
 		<div class="card">
 			<div class="card-img-container">
@@ -32,3 +32,25 @@ function generateCards(data) {
 		`).join('')
 	gallery.innerHTML = employees;
 }
+
+// function generateModals(data) {
+// 	const users = data.results.map(user => `
+// 		<div class="modal-container">
+// 	        <div class="modal">
+// 	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+// 	            <div class="modal-info-container">
+// 	                <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+// 	                <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+// 	                <p class="modal-text">${user.email}</p>
+// 	                <p class="modal-text cap">${user.location.city}</p>
+// 	                <hr>
+// 	                <p class="modal-text">(555) 555-5555</p>
+// 	                <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+// 	                <p class="modal-text">Birthday: ${user.dob.date}.substring('T')</p>
+// 	            </div>
+// 	        </div>
+// 	    </div>
+// 	`)
+
+// }
+
