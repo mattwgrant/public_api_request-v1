@@ -1,20 +1,34 @@
 const gallery = document.getElementById('gallery');
 
+/*
+ * Calls API to pull data from 12 random users
+ */
 fetch('https://randomuser.me/api/?results=12')
 	.then(res => res.json())
-	.then(data => console.log(data))
+	.then(data => {
+		const users = data;
+		generateCards(users);
+		})
+	// .then(data => console.log(data))
 
 
+
+/*
+ * Creates HTML to display as card for each user
+ */
 function generateCards(data) {
-	const employees = data.map(employee => `
-		<div class="card-img-container">
-			<img class="card-img" src="${employee.result.picture.thumbnail}" alt="profile picture">
+
+	const employees = data.results.map(employee => `
+		<div class="card">
+			<div class="card-img-container">
+				<img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
+			</div>
+			<div class=card-info-container>
+				<h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
+				<p class="card-text">${employee.email}</p>
+				<p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
+			</div>
 		</div>
-		<div class=card-info-container>
-			<h3 id="name" class="card-name cap">${employee.results.name.first} ${employee.results.name.last}</h3>
-			<p class="card-text">${employee.results.email}</p>
-			<p class="card-text cap">${employee.results.location.city}, ${employee.results.location.state}</p>
-		</div>
-		`)
-	gallery.appendChild(employee);
+		`).join('')
+	gallery.innerHTML = employees;
 }
