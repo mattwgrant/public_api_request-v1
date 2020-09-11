@@ -33,6 +33,9 @@ function generateCards(data) {
 	gallery.innerHTML = employees;
 }
 
+/* 
+ * Generates HTML and content for the modals
+ */
 // function generateModals(data) {
 // 	const users = data.results.map(user => `
 // 		<div class="modal-container">
@@ -53,4 +56,9 @@ function generateCards(data) {
 // 	`)
 
 // }
+
+
+/*
+ * Click events to open/close the modal
+ */
 
