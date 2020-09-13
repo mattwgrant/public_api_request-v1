@@ -1,16 +1,20 @@
 const gallery = document.getElementById('gallery');
-
+const cards = document.querySelectorAll('.card');
+// const cardsArr = Array.from(cards);
+// const modal = document.querySelectorAll('.modal');
+const url = 'https://randomuser.me/api/?nat=us&results=12';
 /*
  * Calls API to pull data from 12 random users
  */
-fetch('https://randomuser.me/api/?results=12')
+fetch(url)
 	.then(res => res.json())
 	.then(data => {
 		const users = data;
 		generateCards(users);
-		// generateModals(users);
+		generateModals(users);
+		// console.log(users);
 		})
-	// .then(data => console.log(data))
+	.catch(error => console.log('There was an error with your request:', error))
 
 
 
@@ -30,35 +34,53 @@ function generateCards(data) {
 			</div>
 		</div>
 		`).join('')
-	gallery.innerHTML = employees;
+	gallery.insertAdjacentHTML('beforeend', employees);
 }
 
 /* 
  * Generates HTML and content for the modals
  */
-// function generateModals(data) {
-// 	const users = data.results.map(user => `
-// 		<div class="modal-container">
-// 	        <div class="modal">
-// 	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-// 	            <div class="modal-info-container">
-// 	                <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-// 	                <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
-// 	                <p class="modal-text">${user.email}</p>
-// 	                <p class="modal-text cap">${user.location.city}</p>
-// 	                <hr>
-// 	                <p class="modal-text">(555) 555-5555</p>
-// 	                <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-// 	                <p class="modal-text">Birthday: ${user.dob.date}.substring('T')</p>
-// 	            </div>
-// 	        </div>
-// 	    </div>
-// 	`)
+function generateModals(data) {
 
-// }
+	const users = data.results.map(user => `
+		<div class="modal-container">
+	        <div class="modal">
+	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+	            <div class="modal-info-container">
+	                <img class="modal-img" src="${user.picture.large}" alt="profile picture">
+	                <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+	                <p class="modal-text">${user.email}</p>
+	                <p class="modal-text cap">${user.location.city}</p>
+	                <hr>
+	                <p class="modal-text">${user.cell}</p>
+	                <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+	                <p class="modal-text">Birthday: ${user.dob.date.substring(0,10)}</p>
+	            </div>
+	        </div>
+	    </div>
+	`).join('')
+	gallery.insertAdjacentHTML('beforeend', users)
+}
 
 
 /*
  * Click events to open/close the modal
  */
+gallery.addEventListener('click', (e) => {
+ 	
+ 	// for ( let i = 0; i < cardsArr.length; i++ ) {
+ 		if ( e.target && e.target.className !== 'gallery') {
+			// generateModals(e.target);
+			console.log('hi');
+			// using console.log to just test that the click was working
+ 		} 
+ 	// }	
+ });
+
+document.querySelectorAll('.modal-container').addEventListener('click', (e) => {
+ 	// const modal = document.querySelectorAll('.modal-container');
+ 	if ( e.target.nodeName = 'BUTTON' ) {
+ 		modal.style.display = 'none';
+ 	}
+ });
 
