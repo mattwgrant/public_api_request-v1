@@ -11,7 +11,6 @@ fetch(url, {mode: 'cors'})
 		const users = data;
 		userData.push(users);
 		generateCards(users);
-		// generateModals(users);
 		// console.log(users);
 		})
 	.catch(error => console.log('There was an error with your request:', error))
@@ -45,7 +44,10 @@ function generateModals(data) {
 	// const users = data.map(user => 
 	const userInfo = userData[0].results;
  	for ( let i = 0; i < userInfo.length; i++ ) {	
-		
+		const birthday = userInfo[i].dob.date;
+		const day = birthday.slice(8,9);
+		const month = birthday.slice(5, 7);
+		const year = birthday.slice(0,4)
 		const modal = `<div class="modal-container">
 	        <div class="modal">
 	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -55,9 +57,9 @@ function generateModals(data) {
 	                <p class="modal-text">${userInfo[i].email}</p>
 	                <p class="modal-text cap">${userInfo[i].location.city}</p>
 	                <hr>
-	                <p class="modal-text">${userInfo[i].cell}</p>
+	                <p class="modal-text">${userInfo[i].cell.replace('-', ' ')}</p>
 	                <p class="modal-text">${userInfo[i].location.street.number} ${userInfo[i].location.street.name}, ${userInfo[i].location.city}, ${userInfo[i].location.state} ${userInfo[i].location.postcode}</p>
-	                <p class="modal-text">Birthday: ${userInfo[i].dob.date.substring(0,10)}</p>
+	                <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
 	            </div>
 	        </div>
 	    </div>`
@@ -65,6 +67,8 @@ function generateModals(data) {
 		console.log(modal)
 	}
 }
+
+
 
 
 /*
