@@ -2,6 +2,7 @@ const gallery = document.getElementById('gallery');
 const cards = document.querySelectorAll('.card');
 const userData = [];
 const url = 'https://randomuser.me/api/?nat=us&results=12';
+let modal = [];
 /*
  * Calls API to pull data from 12 random users
  */
@@ -11,7 +12,7 @@ fetch(url, {mode: 'cors'})
 		const users = data;
 		userData.push(users);
 		generateCards(users);
-		// console.log(users);
+		console.log(users);
 		})
 	.catch(error => console.log('There was an error with your request:', error))
 
@@ -43,12 +44,13 @@ function generateModals(data) {
 
 	// const users = data.map(user => 
 	const userInfo = userData[0].results;
+
  	for ( let i = 0; i < userInfo.length; i++ ) {	
 		const birthday = userInfo[i].dob.date;
-		const day = birthday.slice(8,9);
+		const day = birthday.slice(8, 10);
 		const month = birthday.slice(5, 7);
-		const year = birthday.slice(0,4)
-		const modal = `<div class="modal-container">
+		const year = birthday.slice(0, 4)
+		 modal = `<div class="modal-container">
 	        <div class="modal">
 	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
 	            <div class="modal-info-container">
@@ -63,6 +65,7 @@ function generateModals(data) {
 	            </div>
 	        </div>
 	    </div>`
+	   	
 	
 		console.log(modal)
 	}
@@ -76,14 +79,39 @@ function generateModals(data) {
  */
 gallery.addEventListener('click', (e) => {
  	
+ 	const userInfo = userData[0].results;
  		if ( e.target && e.target.className !== 'gallery') {
 			// generateModals(userData);
 			// console.log('hi');
 			// using console.log to just test that the click was working
 			// console.log(userData[0].results[i]);
-			generateModals(userData)
- 		} 
- 		
+			// generateModals(userData)
+
+			for ( let i = 0; i < userInfo.length; i++ ) {	
+				const birthday = userInfo[i].dob.date;
+				const day = birthday.slice(8,9);
+				const month = birthday.slice(5, 7);
+				const year = birthday.slice(0,4)
+				modal = `<div class="modal-container">
+			        <div class="modal">
+			            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+			            <div class="modal-info-container">
+			                <img class="modal-img" src="${userInfo[i].picture.large}" alt="profile picture">
+			                <h3 id="name" class="modal-name cap">${userInfo[i].name.first} ${userInfo[i].name.last}</h3>
+			                <p class="modal-text">${userInfo[i].email}</p>
+			                <p class="modal-text cap">${userInfo[i].location.city}</p>
+			                <hr>
+			                <p class="modal-text">${userInfo[i].cell.replace('-', ' ')}</p>
+			                <p class="modal-text">${userInfo[i].location.street.number} ${userInfo[i].location.street.name}, ${userInfo[i].location.city}, ${userInfo[i].location.state} ${userInfo[i].location.postcode}</p>
+			                <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
+			            </div>
+			        </div>
+			    </div>`
+			
+				
+		 	} 
+		 	console.log(modal);
+ 	}	
  });
 
 // document.querySelectorAll('.modal-container').addEventListener('click', (e) => {
