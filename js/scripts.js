@@ -42,7 +42,7 @@ function generateCards(data) {
 
 
 /*
- * Click events to open/close the modal
+ * Click events to create and openthe modals
  */
 gallery.addEventListener('click', (e) => {
  	
