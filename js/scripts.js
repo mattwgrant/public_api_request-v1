@@ -4,6 +4,7 @@ let userData = [];
 const url = 'https://randomuser.me/api/?nat=us&results=12';
 let modals = [];
 let cards = [];
+// let modalDiv = document.querySelectorAll('.')
 
 /*
  * Calls API to pull data from 12 random users
@@ -39,8 +40,8 @@ function generateCards(data) {
 			</div>
 		</div>
 		`
-		cards.push(card);
-		gallery.insertAdjacentHTML('beforeend', card);
+		
+
 
 		const birthday = userInfo[i].dob.date;
 		const day = birthday.slice(8,10);
@@ -62,7 +63,22 @@ function generateCards(data) {
 	            </div>
 	        </div>
 	    </div>`
+
+	    // card[i].addEventListener('click', (e) => {
+	    // 	gallery.innerHTML = e.target.modal;
+	    // })
+
+		gallery.insertAdjacentHTML('beforeend', card);
+		cards.push(card);
 	    modals.push(modal);
+
+	    card[i].onclick = function() {displaymodals()};
+
+	    function displayModals() {
+	    	gallery.innerHTML = modal.indexOf(card[i]);
+	    }
+	    console.log(card);
+	    console.log(modal);
 	}
 }
 
@@ -74,19 +90,21 @@ function generateCards(data) {
  * Click events to create and openthe modals
  */
 
-gallery.addEventListener('click', (e) => {
+// gallery.addEventListener('click', (e) => {
  	
-	if ( e.target && e.target.className !== 'gallery') {
-		gallery.insertAdjacentHTML('beforeend', modals);
-	} else {
-		console.log('Not right!');
-	}
- });
+// 	if ( e.target && e.target.className !== 'gallery') {
+// 		gallery.insertAdjacentHTML('beforeend', modals)
+// 	} else {
+// 		console.log('Not right!');
+// 	}
+//  });
 
-// document.querySelectorAll(modals).addEventListener('click', (e) => {
-//  	const modal = document.querySelectorAll('.modal-container');
-//  	if ( e.target.nodeName == 'BUTTON' ) {
-//  		modal.style.display = 'none';
+// document.querySelector('modals')[11].addEventListener('click', (e) => {
+ 	
+//  	if ( e.target == 'BUTTON' ) {
+//  		console.log('It\'s a button!')
+//  	} else {
+//  		console.log('this sucks')
 //  	}
 //  });
 
