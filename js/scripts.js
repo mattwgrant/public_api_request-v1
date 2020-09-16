@@ -1,10 +1,14 @@
 const gallery = document.getElementById('gallery');
-// const cardDiv = document.querySelectorAll('.card');
 let userData = [];
 const url = 'https://randomuser.me/api/?nat=us&results=12';
 let modals = [];
 let cards = [];
-// let modalDiv = document.querySelectorAll('.')
+let cardKids;
+
+
+/*********************
+	FETCH CALL
+*********************/
 
 /*
  * Calls API to pull data from 12 random users
@@ -22,11 +26,14 @@ fetch(url, {mode: 'cors'})
 
 
 
-/*
- * Creates HTML to display as card for each user
- */
+/*********************
+   HELPER FUNCTIONS
+*********************/
+
 function generateCards(data) {
+
 	const userInfo = userData[0].results;
+
 	for ( let i = 0; i < userInfo.length; i++ ) {	
 		let card = `
 		<div class="card">
@@ -40,9 +47,8 @@ function generateCards(data) {
 			</div>
 		</div>
 		`
+		cards.push(card);
 		
-
-
 		const birthday = userInfo[i].dob.date;
 		const day = birthday.slice(8,10);
 		const month = birthday.slice(5, 7);
@@ -64,47 +70,56 @@ function generateCards(data) {
 	        </div>
 	    </div>`
 
-	    // card[i].addEventListener('click', (e) => {
-	    // 	gallery.innerHTML = e.target.modal;
-	    // })
-
+	    
+    	modals.push(modal);
 		gallery.insertAdjacentHTML('beforeend', card);
-		cards.push(card);
-	    modals.push(modal);
-
-	    card[i].onclick = function() {displaymodals()};
-
-	    function displayModals() {
-	    	gallery.innerHTML = modal.indexOf(card[i]);
-	    }
-	    console.log(card);
-	    console.log(modal);
+		
 	}
 }
 
 
+function getChildren() {
+	const cardsList = document.querySelectorAll('.card');
+	for ( let i = 0; i < cardsList.length; i++ ) {
+		cardsKids = cardsList[i].childNodes;
+		return cardKids;
+	}
+}
+
+	
 
 
+/*********************
+	EVENT LISTENERS
+*********************/
 
 /*
- * Click events to create and openthe modals
+ * Click event to open the modals
  */
 
-// gallery.addEventListener('click', (e) => {
- 	
-// 	if ( e.target && e.target.className !== 'gallery') {
-// 		gallery.insertAdjacentHTML('beforeend', modals)
-// 	} else {
-// 		console.log('Not right!');
-// 	}
-//  });
+ gallery.addEventListener('click', (e) => {
+ 	const cards = document.querySelectorAll('.card');
 
-// document.querySelector('modals')[11].addEventListener('click', (e) => {
- 	
-//  	if ( e.target == 'BUTTON' ) {
-//  		console.log('It\'s a button!')
-//  	} else {
-//  		console.log('this sucks')
+		if ( e.target.className !== 'gallery' ) {
+			let cardIndex = 0;
+			for (let i = 0, j = cards.length; i < j; i++) {
+				if (e.path.includes(cards[i])) {
+					cardIndex = i;
+				}
+			}
+			gallery.insertAdjacentHTML('afterbegin', modals[cardIndex]);
+		}
+
+});
+
+/*
+ * Click event to close the modals
+ */
+
+// modals.addEventListener('click', (e) => {
+//  	if (e.target.className !== 'card') {
+//  		gallery.insertAdjacentHTML = cards;
 //  	}
+ 
 //  });
 

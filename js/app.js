@@ -2,7 +2,7 @@ const gallery = document.getElementById('gallery');
 let cardsList = [];
 const url = 'https://randomuser.me/api/?nat=us&results=12';
 // let userData = [];
-let name = document.querySelector('h3.value');
+const modalsList = [];
 
 /*
  * Calls API to pull data from 12 random users
@@ -87,7 +87,7 @@ function generateModals(data) {
 	        </div>
 	    </div>`
 	).join('')
-	
+	modalsList.push(modals)
 	console.log(modals);
 }
 
@@ -95,8 +95,15 @@ function generateModals(data) {
 	EVENT LISTENERS
 *********************/
 
-gallery.addEventListener('click', (e) => {
-	if ( e.target.className !== 'gallery' ) {
-		console.log('hi');
+ gallery.addEventListener('click', (e) => {
+	if ( e.target.className === 'gallery' ) {
+		const cards = document.querySelectorAll('.card');
+		let cardIndex = 0;
+		for (let i = 0, j = cardsList.length; i < j; i++) {
+			if (e.path.includes(cards[i])) {
+				cardIndex = i;
+			}
+		}
+		gallery.insertAdjacentHTML('afterbegin', modalsList[cardIndex]);
 	}
 });
