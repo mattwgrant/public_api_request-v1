@@ -3,7 +3,6 @@ let userData = [];
 const url = 'https://randomuser.me/api/?nat=us&results=12';
 let modals = [];
 let cards = [];
-let cardKids;
 
 
 /*********************
