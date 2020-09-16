@@ -19,7 +19,7 @@ fetch(url, {mode: 'cors'})
 		const users = data;
 		userData.push(users);
 		generateCardsModals(users);
-		// generateModals(users);
+		generateModals(users);
 		// console.log(users);
 		})
 	.catch(error => console.log('There was an error with your request:', error))
@@ -29,6 +29,10 @@ fetch(url, {mode: 'cors'})
 /*********************
    HELPER FUNCTIONS
 *********************/
+
+/*
+ * Creates user cards
+ */
 
 function generateCardsModals(data) {
 
@@ -49,6 +53,20 @@ function generateCardsModals(data) {
 		`
 		cards.push(card);
 		
+		
+		gallery.insertAdjacentHTML('beforeend', card);
+		
+	}
+}
+	
+/*
+ * Creates user modals
+ */
+
+function generateModals(data) {
+	const userInfo = userData[0].results;
+
+	for ( let i = 0; i < userInfo.length; i++ ) {	
 		const birthday = userInfo[i].dob.date;
 		const day = birthday.slice(8,10);
 		const month = birthday.slice(5, 7);
@@ -69,14 +87,9 @@ function generateCardsModals(data) {
 	            </div>
 	        </div>
 	    </div>`
-
-	    
-    	modals.push(modal);
-		gallery.insertAdjacentHTML('beforeend', card);
-		
-	}
+	    modals.push(modal);
+	 }
 }
-	
 
 
 /*********************
@@ -92,7 +105,7 @@ gallery.addEventListener('click', (e) => {
 
 		if ( e.target.className === 'card' || e.target.className === 'card-img-container' || e.target.className === 'card-img' || e.target.className === 'card-info-container' || e.target.className === 'card-name' || e.target.className === 'card-text' || e.target.className === 'card-name cap' || e.target.className === 'card-text cap') {
 			let cardIndex = 0;
-			for (let i = 0, j = cards.length; i < j; i++) {
+			for (let i = 0; i < cards.length; i++) {
 				if (e.path.includes(cards[i])) {
 					cardIndex = i;
 				}
@@ -120,4 +133,3 @@ gallery.addEventListener('click', (e) => {
  	}
  
  });
-
