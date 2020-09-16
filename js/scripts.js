@@ -18,7 +18,7 @@ fetch(url, {mode: 'cors'})
 	.then(data => {
 		const users = data;
 		userData.push(users);
-		generateCards(users);
+		generateCardsModals(users);
 		// generateModals(users);
 		// console.log(users);
 		})
@@ -30,7 +30,7 @@ fetch(url, {mode: 'cors'})
    HELPER FUNCTIONS
 *********************/
 
-function generateCards(data) {
+function generateCardsModals(data) {
 
 	const userInfo = userData[0].results;
 
@@ -40,7 +40,7 @@ function generateCards(data) {
 			<div class="card-img-container">
 				<img class="card-img" src="${userInfo[i].picture.thumbnail}" alt="profile picture">
 			</div>
-			<div class=card-info-container>
+			<div class="card-info-container">
 				<h3 id="name" class="card-name cap">${userInfo[i].name.first} ${userInfo[i].name.last}</h3>
 				<p class="card-text">${userInfo[i].email}</p>
 				<p class="card-text cap">${userInfo[i].location.city}, ${userInfo[i].location.state}</p>
@@ -76,16 +76,6 @@ function generateCards(data) {
 		
 	}
 }
-
-
-function getChildren() {
-	const cardsList = document.querySelectorAll('.card');
-	for ( let i = 0; i < cardsList.length; i++ ) {
-		cardsKids = cardsList[i].childNodes;
-		return cardKids;
-	}
-}
-
 	
 
 
@@ -97,10 +87,10 @@ function getChildren() {
  * Click event to open the modals
  */
 
- gallery.addEventListener('click', (e) => {
+gallery.addEventListener('click', (e) => {
  	const cards = document.querySelectorAll('.card');
 
-		if ( e.target.className !== 'gallery' ) {
+		if ( e.target.className === 'card' || e.target.className === 'card-img-container' || e.target.className === 'card-img' || e.target.className === 'card-info-container' || e.target.className === 'card-name' || e.target.className === 'card-text' || e.target.className === 'card-name cap' || e.target.className === 'card-text cap') {
 			let cardIndex = 0;
 			for (let i = 0, j = cards.length; i < j; i++) {
 				if (e.path.includes(cards[i])) {
@@ -108,18 +98,24 @@ function getChildren() {
 				}
 			}
 			gallery.insertAdjacentHTML('afterbegin', modals[cardIndex]);
-		}
-
+			e.stopPropagation();
+		} 
 });
 
 /*
  * Click event to close the modals
  */
 
-// modals.addEventListener('click', (e) => {
-//  	if (e.target.className !== 'card') {
-//  		gallery.insertAdjacentHTML = cards;
-//  	}
+gallery.addEventListener('click', (e) => {
+	const button = document.querySelector('.modal-close-btn');
+	const modalContainer = document.querySelector('.modal-container')
+ 	if (e.target === button) {
+ 		// const modal = document.querySelector('modal-container');
+ 		// modal.style.display = 'none';
+ 		e.target.parentNode.parentNode.parentNode.removeChild(modalContainer);
+ 	} else if ( e.target === modalContainer) {
+ 		e.target.parentNode.removeChild(e.target);
+ 	}
  
-//  });
+ });
 

@@ -12,4 +12,4 @@
 
 
 
-
+|| e.target.className === 'card-img-container' || e.target.className === 'card-img' || e.target.className === 'card-info-container' || e.target.className === 'card-name' || e.target.className === 'card-text'
