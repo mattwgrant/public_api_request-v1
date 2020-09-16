@@ -1,0 +1,1 @@
+This application uses fetch to get data for the random user website and display 12 as cards on the page at load. It then allows the user to click on a card and then displays a modal with more information about the user.
