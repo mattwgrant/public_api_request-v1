@@ -106,7 +106,7 @@ gallery.addEventListener('click', (e) => {
 		if ( e.target.className === 'card' || e.target.className === 'card-img-container' || e.target.className === 'card-img' || e.target.className === 'card-info-container' || e.target.className === 'card-name' || e.target.className === 'card-text' || e.target.className === 'card-name cap' || e.target.className === 'card-text cap') {
 			let cardIndex = 0;
 			for (let i = 0; i < cards.length; i++) {
-				if (e.path.includes(cards[i])) {
+				if (e.composedPath().includes(cards[i])) {
 					cardIndex = i;
 				}
 			}
