@@ -98,7 +98,6 @@ gallery.addEventListener('click', (e) => {
 				}
 			}
 			gallery.insertAdjacentHTML('afterbegin', modals[cardIndex]);
-			e.stopPropagation();
 		} 
 });
 
@@ -109,12 +108,15 @@ gallery.addEventListener('click', (e) => {
 gallery.addEventListener('click', (e) => {
 	const button = document.querySelector('.modal-close-btn');
 	const modalContainer = document.querySelector('.modal-container')
+	const x = document.querySelector('strong');
  	if (e.target === button) {
  		// const modal = document.querySelector('modal-container');
  		// modal.style.display = 'none';
  		e.target.parentNode.parentNode.parentNode.removeChild(modalContainer);
  	} else if ( e.target === modalContainer) {
  		e.target.parentNode.removeChild(e.target);
+ 	} else if ( e.target === x ) {
+ 		e.target.parentNode.parentNode.parentNode.parentNode.removeChild(modalContainer);
  	}
  
  });
